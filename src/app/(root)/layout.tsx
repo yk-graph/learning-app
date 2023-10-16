@@ -1,3 +1,5 @@
+import Logout from '@/components/logout'
+
 export default function RootLayout({
   children,
 }: {
@@ -5,7 +7,9 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <header>Header</header>
+      <header>
+        <Logout />
+      </header>
       <div>{children}</div>
     </>
   )
