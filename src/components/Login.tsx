@@ -6,7 +6,7 @@ import { GoogleAuthProvider, User, signInWithPopup } from 'firebase/auth'
 import { auth, gogleProvider } from '@/firebase/clientApp'
 import { useStoreModal } from '@/hooks'
 
-export const LoginForm = () => {
+export const Login = () => {
   const router = useRouter()
   const { setAuthUser } = useStoreModal()
 

@@ -1,4 +1,4 @@
-import Logout from '@/components/logout'
+import { Logout } from '@/components/Logout'
 
 export default function RootLayout({
   children,
@@ -6,11 +6,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <>
-      <header>
+    <div className="h-screen w-full bg-slate-900">
+      <header className="flex items-center justify-end p-4 border-b border-b-white">
         <Logout />
       </header>
-      <div>{children}</div>
-    </>
+      <main className="py-8 px-4">{children}</main>
+    </div>
   )
 }

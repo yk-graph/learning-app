@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
-import { AuthChecker } from '@/providers/authChecker'
+import { AuthProvider } from '@/providers/AuthProvider'
 
 export const metadata = {
   title: 'LearningApp',
@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja">
       <body className={inter.className}>
-        <AuthChecker>{children}</AuthChecker>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   )
