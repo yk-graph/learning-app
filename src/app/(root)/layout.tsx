@@ -1,27 +1,16 @@
-import { redirect } from 'next/navigation'
-import { getServerSession } from 'next-auth'
-
-import { authOptions } from '../../../pages/api/auth/[...nextauth]'
-import { Logout } from '@/components'
-import SessionProvider from '@/providers/session-provider'
+import { Logout } from '@/components/Logout'
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const session = await getServerSession(authOptions)
-
-  if (!session) {
-    redirect('/login')
-  }
-
   return (
-    <SessionProvider>
-      <header>
+    <div className="h-screen w-full bg-slate-900">
+      <header className="flex items-center justify-end p-4 border-b border-b-white">
         <Logout />
       </header>
-      {children}
-    </SessionProvider>
+      <main className="py-8 px-4">{children}</main>
+    </div>
   )
 }
