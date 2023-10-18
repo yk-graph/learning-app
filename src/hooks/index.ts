@@ -1,1 +1,1 @@
-export { default as useStoreModal } from './useAuth'
+export { default as useStoreModal } from './use-auth'
