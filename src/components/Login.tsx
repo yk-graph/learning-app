@@ -4,11 +4,11 @@ import { useRouter } from 'next/navigation'
 import { GoogleAuthProvider, User, signInWithPopup } from 'firebase/auth'
 
 import { auth, gogleProvider } from '@/firebase/clientApp'
-import { useStoreModal } from '@/hooks'
+import { useAuthStore } from '@/hooks'
 
-export const Login = () => {
+const Login = () => {
   const router = useRouter()
-  const { setAuthUser } = useStoreModal()
+  const { setAuthUser } = useAuthStore()
 
   const signInGoogle = async () => {
     await signInWithPopup(auth, gogleProvider)
@@ -42,3 +42,5 @@ export const Login = () => {
     </div>
   )
 }
+
+export default Login

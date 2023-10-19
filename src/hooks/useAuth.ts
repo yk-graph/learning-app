@@ -7,9 +7,9 @@ interface useAuthStore {
   setAuthUser: (authUser: AuthUser) => void
 }
 
-const useStoreModal = create<useAuthStore>((set) => ({
+const useAuthStore = create<useAuthStore>((set) => ({
   authUser: null,
   setAuthUser: (authUser) => set({ authUser }),
 }))
 
-export default useStoreModal
+export default useAuthStore
