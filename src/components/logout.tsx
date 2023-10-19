@@ -5,7 +5,7 @@ import { signOut } from 'firebase/auth'
 
 import { auth } from '@/firebase/clientApp'
 
-export const Logout = () => {
+const Logout = () => {
   const router = useRouter()
 
   const logout = async () => {
@@ -20,3 +20,5 @@ export const Logout = () => {
 
   return <div onClick={logout}>ログアウト</div>
 }
+
+export default Logout

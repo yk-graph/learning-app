@@ -1,4 +1,4 @@
-import { Logout } from '@/components/Logout'
+import { Header } from '@/components'
 
 export default async function RootLayout({
   children,
@@ -7,9 +7,7 @@ export default async function RootLayout({
 }) {
   return (
     <div className="h-screen w-full bg-slate-900">
-      <header className="flex items-center justify-end p-4 border-b border-b-white">
-        <Logout />
-      </header>
+      <Header />
       <main className="py-8 px-4">{children}</main>
     </div>
   )

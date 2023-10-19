@@ -4,8 +4,8 @@ import { FC, ReactNode, useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { auth } from '@/firebase/clientApp'
-import { useStoreModal } from '@/hooks'
-import { Loading } from '@/components/Loading'
+import { useAuthStore } from '@/hooks'
+import { Loading } from '@/components'
 
 interface Props {
   children: ReactNode
@@ -14,7 +14,7 @@ interface Props {
 export const AuthProvider: FC<Props> = ({ children }) => {
   const router = useRouter()
   const pathname = usePathname()
-  const { authUser, setAuthUser } = useStoreModal()
+  const { authUser, setAuthUser } = useAuthStore()
 
   const [isMounted, setIsMounted] = useState(false)
 

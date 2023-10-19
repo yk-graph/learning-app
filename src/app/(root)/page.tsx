@@ -17,6 +17,9 @@ export default function Home() {
       <div>
         <Link href="/firebase">Firebase</Link>
       </div>
+      <div>
+        <Link href="/create">create</Link>
+      </div>
     </div>
   )
 }
