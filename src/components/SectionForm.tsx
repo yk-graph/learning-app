@@ -5,62 +5,69 @@ import { collection, doc, onSnapshot, setDoc } from 'firebase/firestore'
 
 import { db } from '@/firebase/clientApp'
 import { useAuthStore, useContentStore } from '@/hooks'
-import type { Category } from '@/types'
+import type { Section } from '@/types'
 
-const CategoryForm = () => {
+const SectionForm = () => {
   const { authUser } = useAuthStore()
-  const { setCategoryId } = useContentStore()
+  const { categoryId, setSectionId } = useContentStore()
 
   const [inputValue, setInputValue] = useState({
     id: '',
     name: '',
   })
-  const [categories, setCategories] = useState<Category[]>([])
+  const [sections, setSections] = useState<Section[]>([])
 
   useEffect(() => {
     const unsub = onSnapshot(
-      collection(db, `users/${authUser?.uid}/categories`),
+      collection(
+        db,
+        `users/${authUser?.uid}/categories/${categoryId}/sections`
+      ),
       (res) => {
-        const fetchedCategories = res.docs
-          .map((doc) => doc.data() as Category)
+        const fetchedSections = res.docs
+          .map((doc) => doc.data() as Section)
           .sort((a, b) => a.position - b.position)
-        setCategories(fetchedCategories)
+        setSections(fetchedSections)
       }
     )
     return () => unsub()
-  }, [])
+  }, [categoryId])
 
   const handleChangeSelectCategory = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setInputValue({ id: '', name: '' })
-    setCategoryId(e.target.value)
+    setSectionId(e.target.value)
   }
 
-  const handleSubmitAddCategory = async () => {
+  const handleSubmitAddSection = async () => {
     await setDoc(
-      doc(db, `users/${authUser?.uid}/categories/${inputValue.id}`),
+      doc(
+        db,
+        `users/${authUser?.uid}/categories/${categoryId}/sections/${inputValue.id}`
+      ),
       {
         id: inputValue.id,
         name: inputValue.name,
-        position: categories.length + 1,
+        position: sections.length + 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       }
     )
-      .then(() => alert('カテゴリーを追加しました'))
-      .catch(() => alert('カテゴリーの追加に失敗しました'))
+      .then(() => alert('セクションを追加しました'))
+      .catch(() => alert('セクションの追加に失敗しました'))
       .finally(() => setInputValue({ id: '', name: '' }))
   }
 
   return (
-    <div className="border-b border-b-slate-500">
+    <div className="mt-8 border-b border-b-slate-500">
       <div className="mb-8">
-        <h2>カテゴリー追加</h2>
+        <h2>セクション追加</h2>
         <div className="flex gap-x-4">
           <input
             className="h-10 w-40 rounded px-4 text-teal-900"
             type="text"
+            disabled={!categoryId}
             placeholder="id"
             value={inputValue.id}
             onChange={(e) => {
@@ -70,6 +77,7 @@ const CategoryForm = () => {
           <input
             className="h-10 flex-1 rounded px-4 text-teal-900"
             type="text"
+            disabled={!categoryId}
             placeholder="name"
             value={inputValue.name}
             onChange={(e) => {
@@ -78,8 +86,8 @@ const CategoryForm = () => {
           />
           <button
             className="h-10 w-24 ml-auto border border-solid border-white rounded cursor-pointer"
-            disabled={!inputValue.id || !inputValue.name}
-            onClick={handleSubmitAddCategory}
+            disabled={!categoryId || !inputValue.id || !inputValue.name}
+            onClick={handleSubmitAddSection}
           >
             Add
           </button>
@@ -87,14 +95,15 @@ const CategoryForm = () => {
       </div>
 
       <div className="mb-8">
-        <h2>カテゴリー選択</h2>
+        <h2>セクション選択</h2>
         <div className="flex gap-x-4">
           <select
             className="h-10 w-full rounded px-4 text-teal-900"
+            disabled={!categoryId}
             onChange={(e) => handleChangeSelectCategory(e)}
           >
             <option hidden>選択してください</option>
-            {categories.map((item) => (
+            {sections.map((item) => (
               <option key={item.id} value={item.id}>
                 {item.name}
               </option>
@@ -106,4 +115,4 @@ const CategoryForm = () => {
   )
 }
 
-export default CategoryForm
+export default SectionForm
