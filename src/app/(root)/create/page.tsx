@@ -1,5 +1,10 @@
-import { CategoryForm } from '@/components'
+import { CategoryForm, SectionForm } from '@/components'
 
 export default function CreatePage() {
-  return <CategoryForm />
+  return (
+    <>
+      <CategoryForm />
+      <SectionForm />
+    </>
+  )
 }
